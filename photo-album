@@ -1,0 +1,1 @@
+php ./photoAlbum.php list:album $1
