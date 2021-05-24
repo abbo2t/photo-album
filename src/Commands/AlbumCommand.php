@@ -43,6 +43,8 @@ class AlbumCommand extends Command
 
         if(empty($photos)) {
             $output->writeln('<comment>No photos found for album with id [' . $album_id . ']</comment>');
+
+            return;
         }
 
         foreach($photos as $photo) {

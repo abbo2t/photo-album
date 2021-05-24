@@ -1,0 +1,14 @@
+{
+    "alias": "photoAlbum.phar",
+    "chmod": "0755",
+    "directories": [
+        "src",
+        "vendor"
+    ],
+    "files": [
+        "readme.md"
+    ],
+    "main": "photoAlbum.php",
+    "output": "build/photoAlbum.phar",
+    "stub": true
+}
