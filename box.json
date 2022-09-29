@@ -1,5 +1,5 @@
 {
-    "alias": "photoAlbum.phar",
+    "alias": "apimConfig.phar",
     "chmod": "0755",
     "directories": [
         "src",
@@ -8,7 +8,7 @@
     "files": [
         "readme.md"
     ],
-    "main": "photoAlbum.php",
-    "output": "build/photoAlbum.phar",
+    "main": "apimConfig.php",
+    "output": "build/apimConfig.phar",
     "stub": true
 }
