@@ -1,0 +1,1048 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Service for namespace ZOFI_OPEN_ITEMS_SRV",
+        "description": "This service is located at [https://localhost/service-root/](https://localhost/service-root/)\n\n## Entity Data Model\n![ER Diagram](https://yuml.me/diagram/class/[past_due{bg:lightslategray}],[curtailment{bg:lightslategray}],[interest{bg:lightslategray}],[open-item{bg:lightslategray}],[open-item]-*>[interest{bg:lightslategray}],[open-item]-*>[past_due{bg:lightslategray}],[open-item]-*>[curtailment{bg:lightslategray}],[open-items%20{bg:lawngreen}]++-*>[open-item],[interests%20{bg:lawngreen}]++-*>[interest],[curtailments%20{bg:lawngreen}]++-*>[curtailment],[past_dues%20{bg:lawngreen}]++-*>[past_due])\n\n### Legend\n![Legend](https://yuml.me/diagram/plain;dir:TB;scale:60/class/[External.Type{bg:whitesmoke}],[ComplexType],[EntityType{bg:lightslategray}],[EntitySet/Singleton/Operation{bg:lawngreen}])",
+        "version": ""
+    },
+    "servers": [
+        {
+            "url": "https://localhost/service-root"
+        }
+    ],
+    "tags": [
+        {
+            "name": "past_dues"
+        },
+        {
+            "name": "curtailments"
+        },
+        {
+            "name": "interests"
+        },
+        {
+            "name": "open-items"
+        }
+    ],
+    "paths": {
+        "/curtailments": {
+            "get": {
+                "summary": "Get entities from curtailments",
+                "tags": [
+                    "curtailments"
+                ],
+                "parameters": [
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "UIM_INFO",
+                                    "UIM_INFO desc"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "due_date",
+                                    "amount",
+                                    "currency",
+                                    "UIM_INFO"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieved entities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "Collection of curtailment",
+                                    "properties": {
+                                        "@odata.count": {
+                                            "$ref": "#/components/schemas/count"
+                                        },
+                                        "value": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.curtailment"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/curtailments('{due_date}')": {
+            "parameters": [
+                {
+                    "description": "key: due_date",
+                    "in": "path",
+                    "name": "due_date",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 10
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get entity from curtailments by key",
+                "tags": [
+                    "curtailments"
+                ],
+                "parameters": [
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "due_date",
+                                    "amount",
+                                    "currency",
+                                    "UIM_INFO"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieved entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.curtailment"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/open-items": {
+            "get": {
+                "summary": "Get entities from open-items",
+                "tags": [
+                    "open-items"
+                ],
+                "parameters": [
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "UIM_INFO",
+                                    "UIM_INFO desc"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "account_holder",
+                                    "account_number",
+                                    "currency",
+                                    "total_curtailment_due",
+                                    "total_curtailment_due_date",
+                                    "total_interest_due",
+                                    "total_interest_due_date",
+                                    "total_past_due",
+                                    "total_past_due_date",
+                                    "UIM_INFO"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "*",
+                                    "interests",
+                                    "past_dues",
+                                    "curtailments"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieved entities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "Collection of open-item",
+                                    "properties": {
+                                        "@odata.count": {
+                                            "$ref": "#/components/schemas/count"
+                                        },
+                                        "value": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.open-item"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/open-items(account_holder='{account_holder}',account_number='{account_number}')": {
+            "parameters": [
+                {
+                    "description": "key: account_holder",
+                    "in": "path",
+                    "name": "account_holder",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 10
+                    }
+                },
+                {
+                    "description": "key: account_number",
+                    "in": "path",
+                    "name": "account_number",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 35
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get entity from open-items by key",
+                "tags": [
+                    "open-items"
+                ],
+                "parameters": [
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "account_holder",
+                                    "account_number",
+                                    "currency",
+                                    "total_curtailment_due",
+                                    "total_curtailment_due_date",
+                                    "total_interest_due",
+                                    "total_interest_due_date",
+                                    "total_past_due",
+                                    "total_past_due_date",
+                                    "UIM_INFO"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "$expand",
+                        "description": "Expand related entities, see [Expand](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionexpand)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "*",
+                                    "interests",
+                                    "past_dues",
+                                    "curtailments"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieved entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.open-item"
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/open-items(account_holder='{account_holder}',account_number='{account_number}')/interests": {
+            "parameters": [
+                {
+                    "description": "key: account_holder",
+                    "in": "path",
+                    "name": "account_holder",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 10
+                    }
+                },
+                {
+                    "description": "key: account_number",
+                    "in": "path",
+                    "name": "account_number",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 35
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get entities from related interests",
+                "tags": [
+                    "open-items",
+                    "interests"
+                ],
+                "parameters": [
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "UIM_INFO",
+                                    "UIM_INFO desc"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "due_date",
+                                    "amount",
+                                    "currency",
+                                    "UIM_INFO"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieved entities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "Collection of interest",
+                                    "properties": {
+                                        "@odata.count": {
+                                            "$ref": "#/components/schemas/count"
+                                        },
+                                        "value": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.interest"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/open-items(account_holder='{account_holder}',account_number='{account_number}')/past_dues": {
+            "parameters": [
+                {
+                    "description": "key: account_holder",
+                    "in": "path",
+                    "name": "account_holder",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 10
+                    }
+                },
+                {
+                    "description": "key: account_number",
+                    "in": "path",
+                    "name": "account_number",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 35
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get entities from related past_dues",
+                "tags": [
+                    "open-items",
+                    "past_dues"
+                ],
+                "parameters": [
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "UIM_INFO",
+                                    "UIM_INFO desc"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "due_date",
+                                    "amount",
+                                    "currency",
+                                    "UIM_INFO"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieved entities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "Collection of past_due",
+                                    "properties": {
+                                        "@odata.count": {
+                                            "$ref": "#/components/schemas/count"
+                                        },
+                                        "value": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.past_due"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/open-items(account_holder='{account_holder}',account_number='{account_number}')/curtailments": {
+            "parameters": [
+                {
+                    "description": "key: account_holder",
+                    "in": "path",
+                    "name": "account_holder",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 10
+                    }
+                },
+                {
+                    "description": "key: account_number",
+                    "in": "path",
+                    "name": "account_number",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "maxLength": 35
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get entities from related curtailments",
+                "tags": [
+                    "open-items",
+                    "curtailments"
+                ],
+                "parameters": [
+                    {
+                        "name": "$filter",
+                        "description": "Filter items by property values, see [Filtering](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "name": "$orderby",
+                        "description": "Order items by property values, see [Sorting](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "UIM_INFO",
+                                    "UIM_INFO desc"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "$select",
+                        "description": "Select properties to be returned, see [Select](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionselect)",
+                        "in": "query",
+                        "explode": false,
+                        "schema": {
+                            "type": "array",
+                            "uniqueItems": true,
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "due_date",
+                                    "amount",
+                                    "currency",
+                                    "UIM_INFO"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieved entities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "title": "Collection of curtailment",
+                                    "properties": {
+                                        "@odata.count": {
+                                            "$ref": "#/components/schemas/count"
+                                        },
+                                        "value": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.curtailment"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        },
+        "/$batch": {
+            "post": {
+                "summary": "Send a group of requests",
+                "description": "Group multiple requests into a single request payload, see [Batch Requests](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_BatchRequests).\n\n*Please note that \"Try it out\" is not supported for this request.*",
+                "tags": [
+                    "Batch Requests"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "description": "Batch request",
+                    "content": {
+                        "multipart/mixed;boundary=request-separator": {
+                            "schema": {
+                                "type": "string"
+                            },
+                            "example": "--request-separator\nContent-Type: application/http\nContent-Transfer-Encoding: binary\n\nGET past_dues HTTP/1.1\nAccept: application/json\n\n\n--request-separator--"
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Batch response",
+                        "content": {
+                            "multipart/mixed": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "--response-separator\nContent-Type: application/http\n\nHTTP/1.1 200 OK\nContent-Type: application/json\n\n{...}\n--response-separator--"
+                            }
+                        }
+                    },
+                    "4XX": {
+                        "$ref": "#/components/responses/error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ZOFI_OPEN_ITEMS_SRV.curtailment": {
+                "title": "curtailment",
+                "type": "object",
+                "properties": {
+                    "due_date": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "amount": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "format": "decimal",
+                        "example": 0,
+                        "multipleOf": 0.001,
+                        "maximum": 999999999999.999,
+                        "minimum": -999999999999.999
+                    },
+                    "currency": {
+                        "type": "string",
+                        "maxLength": 5
+                    },
+                    "UIM_INFO": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "ZOFI_OPEN_ITEMS_SRV.interest": {
+                "title": "interest",
+                "type": "object",
+                "properties": {
+                    "due_date": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "amount": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "format": "decimal",
+                        "example": 0,
+                        "multipleOf": 0.001,
+                        "maximum": 999999999999.999,
+                        "minimum": -999999999999.999
+                    },
+                    "currency": {
+                        "type": "string",
+                        "maxLength": 5
+                    },
+                    "UIM_INFO": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "ZOFI_OPEN_ITEMS_SRV.open-item": {
+                "title": "open-item",
+                "type": "object",
+                "properties": {
+                    "account_holder": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "account_number": {
+                        "type": "string",
+                        "maxLength": 35
+                    },
+                    "currency": {
+                        "type": "string",
+                        "maxLength": 5
+                    },
+                    "total_curtailment_due": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "format": "decimal",
+                        "example": 0,
+                        "multipleOf": 0.001,
+                        "maximum": 999999999999.999,
+                        "minimum": -999999999999.999
+                    },
+                    "total_curtailment_due_date": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "total_interest_due": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "format": "decimal",
+                        "example": 0,
+                        "multipleOf": 0.001,
+                        "maximum": 999999999999.999,
+                        "minimum": -999999999999.999
+                    },
+                    "total_interest_due_date": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "total_past_due": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "format": "decimal",
+                        "example": 0,
+                        "multipleOf": 0.001,
+                        "maximum": 999999999999.999,
+                        "minimum": -999999999999.999
+                    },
+                    "total_past_due_date": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "UIM_INFO": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "interests": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.interest"
+                        }
+                    },
+                    "interests@odata.count": {
+                        "$ref": "#/components/schemas/count"
+                    },
+                    "past_dues": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.past_due"
+                        }
+                    },
+                    "past_dues@odata.count": {
+                        "$ref": "#/components/schemas/count"
+                    },
+                    "curtailments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ZOFI_OPEN_ITEMS_SRV.curtailment"
+                        }
+                    },
+                    "curtailments@odata.count": {
+                        "$ref": "#/components/schemas/count"
+                    }
+                }
+            },
+            "ZOFI_OPEN_ITEMS_SRV.past_due": {
+                "title": "past_due",
+                "type": "object",
+                "properties": {
+                    "due_date": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "amount": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "format": "decimal",
+                        "example": 0,
+                        "multipleOf": 0.001,
+                        "maximum": 999999999999.999,
+                        "minimum": -999999999999.999
+                    },
+                    "currency": {
+                        "type": "string",
+                        "maxLength": 5
+                    },
+                    "UIM_INFO": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "count": {
+                "anyOf": [
+                    {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    {
+                        "type": "string"
+                    }
+                ],
+                "description": "The number of entities in the collection. Available when using the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount) query option."
+            },
+            "error": {
+                "type": "object",
+                "required": [
+                    "error"
+                ],
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "required": [
+                            "code",
+                            "message"
+                        ],
+                        "properties": {
+                            "code": {
+                                "type": "string"
+                            },
+                            "message": {
+                                "type": "string"
+                            },
+                            "target": {
+                                "type": "string"
+                            },
+                            "details": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "code",
+                                        "message"
+                                    ],
+                                    "properties": {
+                                        "code": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "target": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "innererror": {
+                                "type": "object",
+                                "description": "The structure of this object is service-specific"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "top": {
+                "name": "$top",
+                "in": "query",
+                "description": "Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)",
+                "schema": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "example": 50
+            },
+            "skip": {
+                "name": "$skip",
+                "in": "query",
+                "description": "Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)",
+                "schema": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            },
+            "count": {
+                "name": "$count",
+                "in": "query",
+                "description": "Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)",
+                "schema": {
+                    "type": "boolean"
+                }
+            },
+            "search": {
+                "name": "$search",
+                "in": "query",
+                "description": "Search items by search phrases, see [Searching](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionsearch)",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        },
+        "responses": {
+            "error": {
+                "description": "Error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/error"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

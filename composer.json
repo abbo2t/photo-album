@@ -1,9 +1,9 @@
 {
     "require": {
-        "symfony/console": "^2.0"
+        "symfony/console": "^6.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^9"
     },
     "autoload": {
         "psr-4": {
