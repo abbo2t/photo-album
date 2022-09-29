@@ -69,6 +69,12 @@ class ApimCommand extends Command
             'G1' => '',
         ];
 
+        $subdomains = [
+            'FI' => ['dev' => 'cfiweb', 'qual' => 'fi3web', 'cert' => 'qfiweb', 'prod' => 'pfiweb'],
+            'RB' => ['dev' => '', 'qual' => '', 'cert' => '', 'prod' => ''],
+            'G1' => ['dev' => '', 'qual' => '', 'cert' => '', 'prod' => ''],
+        ];
+
         $mtls_certificate_id = $mtls_certificate_ids[$landscape];
 
         //$display_name = 'SAP FI - Open Items Service';
@@ -110,7 +116,11 @@ class ApimCommand extends Command
             'global-key' => $global_key,
             'source' => $source,
             'description' => $description,
-            'mtls-certificate-id' => $mtls_certificate_id
+            'mtls-certificate-id' => $mtls_certificate_id,
+            'service_subdomain_dev' => $subdomains[$landscape]['dev'],
+            'service_subdomain_qual' => $subdomains[$landscape]['qual'],
+            'service_subdomain_cert' => $subdomains[$landscape]['cert'],
+            'service_subdomain_prod' => $subdomains[$landscape]['prod'],
         ] as $var_name => $var_value) {
             $populated = str_replace('{{' .$var_name . '}}', $var_value, $populated);
             $api_populated = str_replace('{{' .$var_name . '}}', $var_value, $api_populated);
@@ -123,6 +133,8 @@ class ApimCommand extends Command
         $myfile = fopen($path_to_output . $main_file, "w") or die("Unable to open file!");
         fwrite($myfile, $populated);
         fclose($myfile);
+
+        $output->writeln('Success!');
 
         return Command::SUCCESS;
 
