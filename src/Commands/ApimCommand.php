@@ -53,10 +53,6 @@ class ApimCommand extends Command
         $question = new Question('Please enter the service URL' . ' [' . $default . ']', $default);
         $service_url = $helper->ask($input, $output, $question);
 
-        //$default = 'sap-mtls-order-management';
-        //$question = new Question('Please enter the MTLS Certificate ID' . ' [' . $default . ']', $default);
-        //$mtls_certificate_id = $helper->ask($input, $output, $question);
-
         $question = new ChoiceQuestion(
             'Please select the landscape [FI]',
             ['FI', 'RB', 'G1'],
@@ -69,6 +65,8 @@ class ApimCommand extends Command
 
         $mtls_certificate_ids = [
             'FI' => 'sap-mtls-order-management',
+            'RB' => '',
+            'G1' => '',
         ];
 
         $mtls_certificate_id = $mtls_certificate_ids[$landscape];
@@ -118,8 +116,7 @@ class ApimCommand extends Command
             $api_populated = str_replace('{{' .$var_name . '}}', $var_value, $api_populated);
         }
 
-        $myfile = fopen($path_to_output . $api_main_file, "w") or die("Unable to open file!");
-        
+        $myfile = fopen($path_to_output . $api_main_file, "w") or die("Unable to open file!");   
         fwrite($myfile, $api_populated);
         fclose($myfile);
 
