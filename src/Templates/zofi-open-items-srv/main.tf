@@ -5,7 +5,7 @@ module "{{module-name}}_dev" {
   count                        = (var.environment == "sandbox") ? 1 : 0
   source                       = "./{{source}}-api"
   environment                  = var.environment
-  environment_segment         = var.environment_segment
+  environment_segment          = var.environment_segment
   resource_group_name          = var.resource_group_name
   apim_instance_name           = var.apim_instance_name
   product_portfolio            = var.product_portfolio
@@ -24,7 +24,7 @@ module "{{module-name}}_qual" {
   count                        = (var.environment == "devl") ? 1 : 0
   source                       = "./{{source}}-api"
   environment                  = var.environment
-  environment_segment         = var.environment_segment
+  environment_segment          = var.environment_segment
   resource_group_name          = var.resource_group_name
   apim_instance_name           = var.apim_instance_name
   product_portfolio            = var.product_portfolio
@@ -44,7 +44,7 @@ module "{{module-name}}_cert" {
   count                        = (var.environment == "devl") ? 1 : 0
   source                       = "./{{source}}-api"
   environment                  = var.environment
-  environment_segment         = var.environment_segment
+  environment_segment          = var.environment_segment
   resource_group_name          = var.resource_group_name
   apim_instance_name           = var.apim_instance_name
   product_portfolio            = var.product_portfolio
@@ -63,7 +63,7 @@ module "{{module-name}}_prod" {
   count                        = (var.environment == "prod") ? 1 : 0
   source                       = "./{{source}}-api"
   environment                  = var.environment
-  environment_segment         = var.environment_segment
+  environment_segment          = var.environment_segment
   resource_group_name          = var.resource_group_name
   apim_instance_name           = var.apim_instance_name
   product_portfolio            = var.product_portfolio
