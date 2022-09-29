@@ -65,14 +65,20 @@ class ApimCommand extends Command
 
         $mtls_certificate_ids = [
             'FI' => 'sap-mtls-order-management',
-            'RB' => '',
-            'G1' => '',
+            'RB' => 'sap-mtls-order-management',
+            'G1' => 'sap-mtls-jdf-pol',
         ];
 
         $subdomains = [
             'FI' => ['dev' => 'cfiweb', 'qual' => 'fi3web', 'cert' => 'qfiweb', 'prod' => 'pfiweb'],
-            'RB' => ['dev' => '', 'qual' => '', 'cert' => '', 'prod' => ''],
-            'G1' => ['dev' => '', 'qual' => '', 'cert' => '', 'prod' => ''],
+            'RB' => ['dev' => 'crbscs', 'qual' => 'rb3scs', 'cert' => 'qrbscs', 'prod' => 'prbscs'],
+            'G1' => ['dev' => 'cg1web', 'qual' => 'g12web', 'cert' => 'qg1web', 'prod' => 'pg1web'],
+        ];
+
+        $sap_client_ids = [
+            'FI' => ['dev' => '230', 'qual' => '410', 'cert' => '410', 'prod' => '410'],
+            'RB' => ['dev' => '230', 'qual' => '410', 'cert' => '410', 'prod' => '410'],
+            'G1' => ['dev' => '210', 'qual' => '410', 'cert' => '410', 'prod' => '410'],
         ];
 
         $mtls_certificate_id = $mtls_certificate_ids[$landscape];
@@ -121,6 +127,10 @@ class ApimCommand extends Command
             'service_subdomain_qual' => $subdomains[$landscape]['qual'],
             'service_subdomain_cert' => $subdomains[$landscape]['cert'],
             'service_subdomain_prod' => $subdomains[$landscape]['prod'],
+            'sap_client_id_dev' => $sap_client_ids[$landscape]['dev'],
+            'sap_client_id_qual' => $sap_client_ids[$landscape]['qual'],
+            'sap_client_id_cert' => $sap_client_ids[$landscape]['cert'],
+            'sap_client_id_prod' => $sap_client_ids[$landscape]['prod'],
         ] as $var_name => $var_value) {
             $populated = str_replace('{{' .$var_name . '}}', $var_value, $populated);
             $api_populated = str_replace('{{' .$var_name . '}}', $var_value, $api_populated);

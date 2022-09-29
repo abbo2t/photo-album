@@ -17,7 +17,7 @@ module "{{module-name}}_dev" {
   service_url                  = "https://{{service_subdomain_dev}}.dx.deere.com:40443/sap/opu/odata/sap/{{service-url}}"
   auth_server_url              = "https://sso-dev.johndeere.com/oauth2/ausi7tpzliZSTWOp10h7/.well-known/oauth-authorization-server"
   cc_to_sap_list = []
-  sap_client_id = 230
+  sap_client_id = {{sap_client_id_dev}}
 }
 
 module "{{module-name}}_qual" {
@@ -36,7 +36,7 @@ module "{{module-name}}_qual" {
   service_url                  = "https://{{service_subdomain_qual}}.dx.deere.com:40443/sap/opu/odata/sap/{{service-url}}"
   auth_server_url              = "https://sso-qual.johndeere.com/oauth2/ausi350kyb3DS4mMI0h7/.well-known/oauth-authorization-server"
   cc_to_sap_list = []
-  sap_client_id = 410
+  sap_client_id = {{sap_client_id_qual}}
 }
 
 
@@ -56,7 +56,7 @@ module "{{module-name}}_cert" {
   service_url                  = "https://{{service_subdomain_cert}}.dx.deere.com:40443/sap/opu/odata/sap/{{service-url}}"
   auth_server_url              = "https://sso-cert.johndeere.com/oauth2/aus972savuI4PAAgc1t7/.well-known/oauth-authorization-server"
   cc_to_sap_list = []
-  sap_client_id = 410
+  sap_client_id = {{sap_client_id_cert}}
 }
 
 module "{{module-name}}_prod" {
@@ -75,5 +75,5 @@ module "{{module-name}}_prod" {
   service_url                  = "https://{{service_subdomain_prod}}.dx.deere.com:40443/sap/opu/odata/sap/{{service-url}}"
   auth_server_url              = "https://sso.johndeere.com/oauth2/aus9fatalq0bxmt361t7/.well-known/oauth-authorization-server"
   cc_to_sap_list = []
-  sap_client_id = 410
+  sap_client_id = {{sap_client_id_prod}}
 }
