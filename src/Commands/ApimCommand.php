@@ -3,6 +3,7 @@
 namespace PhotoAlbum\Commands;
 
 use Exception;
+use Phar;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -100,6 +101,11 @@ class ApimCommand extends Command
 
         $path_to_template =  dirname(__FILE__) . '/../Templates/zofi-open-items-srv/';
         $path_to_output =  dirname(__FILE__) . '/../../output/';
+
+        if ($phar = Phar::running()) {
+            $path_to_output = str_replace('phar://', '', dirname($phar)) . '/';
+        }
+
         $api_main_file = 'api-main.tf';
         $main_file = 'main.tf';
 

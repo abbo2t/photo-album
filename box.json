@@ -5,6 +5,7 @@
         "src",
         "vendor"
     ],
+    "dump-autoload": false,
     "files": [
         "readme.md"
     ],
