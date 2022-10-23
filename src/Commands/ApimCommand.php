@@ -51,7 +51,7 @@ class ApimCommand extends Command
         $path = $helper->ask($input, $output, $question);
 
         $default = 'ZOFI_OPEN_ITEMS_SRV';
-        $question = new Question('Please enter the service URL' . ' [' . $default . ']', $default);
+        $question = new Question('Please enter the service URL segment' . ' [' . $default . ']', $default);
         $service_url = $helper->ask($input, $output, $question);
 
         $question = new ChoiceQuestion(
@@ -84,20 +84,10 @@ class ApimCommand extends Command
 
         $mtls_certificate_id = $mtls_certificate_ids[$landscape];
 
-        //$display_name = 'SAP FI - Open Items Service';
-        //$module_name = 'sap_fi_open_items';
-        //$name = 'SAP-ZOFI-OPEN-ITEMS';
-        //$path ='zofi-open-items';
-        //$service_url = 'ZOFI_OPEN_ITEMS_SRV';
-
         $top_comment = $display_name . ' API';
         $global_key = str_replace('_', '', $module_name);
-        $source = $path . '-srv-api';
+        $source = $path . '-srv';
         $description = 'System API for ' . $display_name . ' Service';
-
-        //$mtls_certificate_id = 'sap-mtls-order-management';
-
-        //$album_id = $input->getArgument('display-name');
 
         $path_to_template =  dirname(__FILE__) . '/../Templates/zofi-open-items-srv/';
         $path_to_output =  dirname(__FILE__) . '/../../output/';
@@ -111,9 +101,6 @@ class ApimCommand extends Command
 
         $main_template = file_get_contents($path_to_template . $main_file);
         $api_template = file_get_contents($path_to_template . 'zofi-open-items-srv-api/' . $main_file);
-
-        //$output->writeln($path_to_template . $main_file);
-        //$output->writeln($main_template);
 
         $populated = $main_template;
         $api_populated = $api_template;
