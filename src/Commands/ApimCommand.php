@@ -33,26 +33,6 @@ class ApimCommand extends Command
         $this->output = $output;
 
         $helper = $this->getHelper('question');
-        
-        $default = 'SAP FI - Open Items Service';
-        $question = new Question('Please enter the display name' . ' [' . $default . ']', $default);
-        $display_name = $helper->ask($input, $output, $question);
-
-        $default = 'sap_fi_open_items';
-        $question = new Question('Please enter the module name' . ' [' . $default . ']', $default);
-        $module_name = $helper->ask($input, $output, $question);
-
-        $default = 'SAP-ZOFI-OPEN-ITEMS';
-        $question = new Question('Please enter the name' . ' [' . $default . ']', $default);
-        $name = $helper->ask($input, $output, $question);
-
-        $default = 'zofi-open-items';
-        $question = new Question('Please enter the path' . ' [' . $default . ']', $default);
-        $path = $helper->ask($input, $output, $question);
-
-        $default = 'ZOFI_OPEN_ITEMS_SRV';
-        $question = new Question('Please enter the service URL segment' . ' [' . $default . ']', $default);
-        $service_url = $helper->ask($input, $output, $question);
 
         $question = new ChoiceQuestion(
             'Please select the landscape [FI]',
@@ -62,7 +42,31 @@ class ApimCommand extends Command
         $question->setErrorMessage('Landscape %s is invalid.');
 
         $landscape = $helper->ask($input, $output, $question);
-        $output->writeln('You have just selected: ' . $landscape);
+
+        $default = 'ZOFI_OPEN_ITEMS_SRV';
+        $question = new Question('Please enter the current SAP service URL segment' . ' [' . $default . ']: ', $default);
+        $service_url = $helper->ask($input, $output, $question);
+
+        $default = 'SAP FI - Open Items Service';
+        $question = new Question('Please enter a display name for the APIM API' . ' [' . $default . ']: ', $default);
+        $display_name = $helper->ask($input, $output, $question);
+
+        //$default = 'SAP-ZOFI-OPEN-ITEMS-SRV';
+        $default = 'SAP-' . str_replace('-SRV', '', str_replace('_', '-', $service_url));
+        $question = new Question('Please enter a system name for the APIM API' . ' [' . $default . ']: ', $default);
+        $name = $helper->ask($input, $output, $question);
+
+        //$default = 'sap_fi_open_items';
+        $default = strtolower(str_replace('-', '_', str_replace(['-ZO', '-SRV'], ['-', ''],  $name)));
+        $question = new Question('Please enter a module name for the APIM API' . ' [' . $default . ']: ', $default);
+        $module_name = $helper->ask($input, $output, $question);
+
+        //$default = 'zofi-open-items';
+        $default = strtolower(str_replace('-SRV', '', str_replace('_', '-', $service_url)));
+        $question = new Question('Please enter a path for the APIM API' . ' [' . $default . ']: ', $default);
+        $path = $helper->ask($input, $output, $question);
+
+        //$output->writeln('You have just selected: ' . $landscape);
 
         $mtls_certificate_ids = [
             'FI' => 'sap-mtls-order-management',
@@ -84,10 +88,10 @@ class ApimCommand extends Command
 
         $mtls_certificate_id = $mtls_certificate_ids[$landscape];
 
-        $top_comment = $display_name . ' API';
+        $top_comment = $display_name . '';
         $global_key = str_replace('_', '', $module_name);
         $source = $path . '-srv';
-        $description = 'System API for ' . $display_name . ' Service';
+        $description = 'System API for ' . $display_name . '';
 
         $path_to_template =  dirname(__FILE__) . '/../Templates/zofi-open-items-srv/';
         $path_to_output =  dirname(__FILE__) . '/../../output/';

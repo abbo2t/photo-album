@@ -1,5 +1,5 @@
 #
-## {{display-name}} API - Environment Modules
+## {{display-name}} - Environment Modules
 #
 module "{{module-name}}_dev" {
   count                        = (var.environment == "sandbox") ? 1 : 0
@@ -38,7 +38,6 @@ module "{{module-name}}_qual" {
   cc_to_sap_list = []
   sap_client_id = {{sap_client_id_qual}}
 }
-
 
 module "{{module-name}}_cert" {
   count                        = (var.environment == "devl") ? 1 : 0
